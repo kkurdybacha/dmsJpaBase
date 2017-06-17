@@ -11,19 +11,19 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     private Set<Document> createdDocuments = new HashSet<>();
 
-    @OneToMany(mappedBy = "verifier")
+    @OneToMany(mappedBy = "verifier", cascade = CascadeType.PERSIST)
     private Set<Document> verifiedDocuments = new HashSet<>();
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.PERSIST)
     private Set<Document> publishedDocuments = new HashSet<>();
 
-    @ManyToMany(mappedBy = "readers")
+    @ManyToMany(mappedBy = "readers", cascade = CascadeType.PERSIST)
     private Set<Document> readDocuments = new HashSet<>();
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private User user;
 
     @Embedded

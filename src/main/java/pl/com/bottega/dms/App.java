@@ -11,6 +11,7 @@ import pl.com.bottega.dms.model.Document;
 import pl.com.bottega.dms.model.Employee;
 import pl.com.bottega.dms.model.User;
 
+import javax.persistence.Embedded;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
@@ -59,6 +60,40 @@ public class App implements CommandLineRunner {
             document.setPublisher(author);
             document.getReaders().add(author);
             entityManager.merge(document);
+            return null;
+        });
+
+        User user2 = new User();
+        Employee employee = new Employee();
+        user2.setEmployee(employee);
+        employee.setUser(user2);
+        transactionTemplate.execute((c) -> {
+            entityManager.persist(user2);
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            User u = entityManager.merge(user2);
+            entityManager.remove(u);
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            User u = new User();
+            Employee e = new Employee();
+            u.setEmployee(e);
+            Document doc = new Document();
+            doc.setAuthor(e);
+            e.getCreatedDocuments().add(doc);
+            entityManager.persist(u);
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            Employee e = entityManager.find(Employee.class, 3L);
+            for(Document doc : e.getCreatedDocuments())
+                doc.setAuthor(null);
+            entityManager.remove(e);
             return null;
         });
 

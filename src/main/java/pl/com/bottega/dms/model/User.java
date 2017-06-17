@@ -12,7 +12,7 @@ public class User {
     private String login;
     private String password;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.PERSIST)
     private Employee employee;
 
     public Long getId() {
