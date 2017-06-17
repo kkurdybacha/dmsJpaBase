@@ -28,6 +28,9 @@ public class Document {
     @ManyToOne
     private Employee publisher;
 
+    @Enumerated(EnumType.STRING)
+    private DocumentStatus status;
+
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name = "document_id"),
