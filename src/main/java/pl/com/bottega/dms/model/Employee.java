@@ -26,6 +26,20 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private User user;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "countryCode", column = @Column(name = "work_phone_country_code")),
+            @AttributeOverride(name = "number", column = @Column(name = "work_phone_number"))
+    })
+    private PhoneNumber workPhone;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "countryCode", column = @Column(name = "private_phone_country_code")),
+            @AttributeOverride(name = "number", column = @Column(name = "private_phone_number"))
+    })
+    private PhoneNumber privatePhone;
+
     public Long getId() {
         return id;
     }
@@ -58,5 +72,21 @@ public class Employee {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PhoneNumber getWorkPhone() {
+        return workPhone;
+    }
+
+    public void setWorkPhone(PhoneNumber workPhone) {
+        this.workPhone = workPhone;
+    }
+
+    public PhoneNumber getPrivatePhone() {
+        return privatePhone;
+    }
+
+    public void setPrivatePhone(PhoneNumber privatePhone) {
+        this.privatePhone = privatePhone;
     }
 }
