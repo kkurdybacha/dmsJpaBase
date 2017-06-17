@@ -19,13 +19,13 @@ public class Document {
     private LocalDateTime verifiedAt;
     private LocalDateTime publishedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee verifier;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee publisher;
 
     @Enumerated(EnumType.STRING)

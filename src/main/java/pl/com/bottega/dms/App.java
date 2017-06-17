@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 import pl.com.bottega.dms.model.Document;
 import pl.com.bottega.dms.model.Employee;
 import pl.com.bottega.dms.model.User;
 
-import javax.persistence.Embedded;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
@@ -96,6 +93,9 @@ public class App implements CommandLineRunner {
             entityManager.remove(e);
             return null;
         });
+
+        Document dd = entityManager.find(Document.class, 1L);
+        //dd.getAuthor().getId();
 
     }
 
