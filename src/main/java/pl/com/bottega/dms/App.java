@@ -5,14 +5,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.support.TransactionTemplate;
-import pl.com.bottega.dms.model.Document;
-import pl.com.bottega.dms.model.DocumentRepository;
-import pl.com.bottega.dms.model.Employee;
-import pl.com.bottega.dms.model.User;
+import pl.com.bottega.dms.api.DocumentReader;
+import pl.com.bottega.dms.api.DocumentSearchCriteria;
+import pl.com.bottega.dms.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class App implements CommandLineRunner {
@@ -26,6 +26,9 @@ public class App implements CommandLineRunner {
     @Autowired
     private DocumentRepository documentRepository;
 
+    @Autowired
+    private DocumentReader documentReader;
+
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
@@ -37,6 +40,7 @@ public class App implements CommandLineRunner {
         document.setContent("hello world!!!");
         document.setCreatedAt(LocalDateTime.now());
         document.setNumber("1");
+        document.setStatus(DocumentStatus.DRAFT);
         User user = new User();
         user.setLogin("john");
         user.setPassword("111111");
@@ -49,6 +53,7 @@ public class App implements CommandLineRunner {
             entityManager.persist(document);
             return null;
         });
+
 
         System.out.println("Author id: " + author.getId());
         System.out.println("User id: " + user.getId());
@@ -63,7 +68,6 @@ public class App implements CommandLineRunner {
             entityManager.merge(document);
             return null;
         });
-
         User user2 = new User();
         Employee employee = new Employee();
         user2.setEmployee(employee);
@@ -113,6 +117,14 @@ public class App implements CommandLineRunner {
             return null;
         });
 
+
+        DocumentSearchCriteria criteria = new DocumentSearchCriteria();
+        criteria.setAuthorId(1L);
+        criteria.setContent("hell");
+        criteria.setTitle("do");
+        criteria.setStatus(DocumentStatus.DRAFT);
+        List<Document> docs = documentReader.searchDocuments(criteria);
+        System.out.println(docs.size());
     }
 
 }
