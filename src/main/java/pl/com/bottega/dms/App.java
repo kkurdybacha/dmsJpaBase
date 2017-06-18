@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.support.TransactionTemplate;
 import pl.com.bottega.dms.model.Document;
+import pl.com.bottega.dms.model.DocumentRepository;
 import pl.com.bottega.dms.model.Employee;
 import pl.com.bottega.dms.model.User;
 
@@ -21,6 +22,9 @@ public class App implements CommandLineRunner {
 
     @Autowired
     private TransactionTemplate transactionTemplate;
+
+    @Autowired
+    private DocumentRepository documentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
@@ -88,7 +92,7 @@ public class App implements CommandLineRunner {
 
         transactionTemplate.execute((c) -> {
             Employee e = entityManager.find(Employee.class, 3L);
-            for(Document doc : e.getCreatedDocuments())
+            for (Document doc : e.getCreatedDocuments())
                 doc.setAuthor(null);
             entityManager.remove(e);
             return null;
@@ -96,6 +100,18 @@ public class App implements CommandLineRunner {
 
         Document dd = entityManager.find(Document.class, 1L);
         //dd.getAuthor().getId();
+
+        Document ddd = new Document();
+        transactionTemplate.execute((c) -> {
+            documentRepository.save(ddd);
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            Document dddd = documentRepository.findByNumber("1").get();
+            System.out.println(dddd.getId());
+            return null;
+        });
 
     }
 
