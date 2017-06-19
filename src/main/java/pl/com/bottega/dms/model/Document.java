@@ -25,9 +25,6 @@ public class Document {
     @ManyToOne
     private Employee verifier;
 
-    @ManyToOne
-    private Employee publisher;
-
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name = "document_id"),
@@ -105,14 +102,6 @@ public class Document {
 
     public void setVerifier(Employee verifier) {
         this.verifier = verifier;
-    }
-
-    public Employee getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Employee publisher) {
-        this.publisher = publisher;
     }
 
     public Set<Employee> getReaders() {
