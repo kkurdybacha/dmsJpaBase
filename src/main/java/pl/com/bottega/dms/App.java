@@ -52,11 +52,17 @@ public class App implements CommandLineRunner {
         System.out.println("User id: " + user.getId());
         System.out.println("Document id: " + document.getId());
 
+        Employee publisher = new Employee();
+        User publisherUser = new User();
+        publisher.setUser(publisherUser);
+        publisherUser.setEmployee(publisher);
         transactionTemplate.execute((callback) -> {
+            entityManager.persist(publisher);
+            entityManager.persist(publisherUser);
             document.setVerifiedAt(LocalDateTime.now());
             document.setVerifier(author);
             document.setPublishedAt(LocalDateTime.now());
-            document.setPublisher(author);
+            publisher.getPublishedDocuments().add(document);
             document.getReaders().add(author);
             entityManager.merge(document);
             return null;

@@ -14,10 +14,8 @@ public class Employee {
     @OneToMany(mappedBy = "author")
     private Set<Document> createdDocuments = new HashSet<>();
 
-    @OneToMany(mappedBy = "verifier")
-    private Set<Document> verifiedDocuments = new HashSet<>();
-
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
     private Set<Document> publishedDocuments = new HashSet<>();
 
     @ManyToMany(mappedBy = "readers")
@@ -50,11 +48,6 @@ public class Employee {
 
     public Set<Document> getCreatedDocuments() {
         return createdDocuments;
-    }
-
-
-    public Set<Document> getVerifiedDocuments() {
-        return verifiedDocuments;
     }
 
     public Set<Document> getPublishedDocuments() {

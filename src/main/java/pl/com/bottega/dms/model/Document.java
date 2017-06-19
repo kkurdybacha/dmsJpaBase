@@ -25,9 +25,6 @@ public class Document {
     @ManyToOne
     private Employee verifier;
 
-    @ManyToOne
-    private Employee publisher;
-
     @Enumerated(EnumType.STRING)
     private DocumentStatus status;
 
@@ -122,11 +119,4 @@ public class Document {
         return readers;
     }
 
-    public DocumentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(DocumentStatus status) {
-        this.status = status;
-    }
 }
