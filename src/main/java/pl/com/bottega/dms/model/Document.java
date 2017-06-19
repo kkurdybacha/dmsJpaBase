@@ -107,14 +107,6 @@ public class Document {
         this.verifier = verifier;
     }
 
-    public Employee getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Employee publisher) {
-        this.publisher = publisher;
-    }
-
     public Set<Employee> getReaders() {
         return readers;
     }
