@@ -4,10 +4,10 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import pl.com.bottega.dms.model.Document;
 import pl.com.bottega.dms.model.DocumentRepository;
+import pl.com.bottega.dms.model.NoSuchDocumentException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Optional;
 
 @Component
 public class JPADocumentRepository implements DocumentRepository {
@@ -17,16 +17,23 @@ public class JPADocumentRepository implements DocumentRepository {
 
     @Override
     public void save(Document document) {
-        entityManager.merge(document);
+        entityManager.persist(document);
     }
 
     @Override
-    public Optional<Document> findByNumber(String number) {
+    public Document load(String number) {
         Session session = entityManager.unwrap(Session.class);
-        return Optional.ofNullable(
-                session.byNaturalId(Document.class).
-                        using("number", number).
-                        load()
-        );
+        Document document = session.byNaturalId(Document.class).
+                using("number", number).
+                load();
+        if(document == null)
+            throw new NoSuchDocumentException();
+        return document;
+    }
+
+    @Override
+    public void remove(String number) {
+       Document document = load(number);
+       entityManager.remove(document);
     }
 }

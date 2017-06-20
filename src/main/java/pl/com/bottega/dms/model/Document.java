@@ -16,6 +16,7 @@ public class Document {
 
     @NaturalId
     private String number;
+
     private String title;
     private String content;
     private LocalDateTime createdAt;
