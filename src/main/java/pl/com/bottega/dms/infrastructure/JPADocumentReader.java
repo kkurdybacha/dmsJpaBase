@@ -43,6 +43,7 @@ public class JPADocumentReader implements DocumentReader {
             conditions.add("a.id = :authorId");
             paramAdders.add((q) -> q.setParameter("authorId", criteria.getAuthorId()));
         }
+        queryComponents.add("LEFT JOIN FETCH d.readers");
         if(conditions.size() > 0) {
             queryComponents.add("WHERE");
             queryComponents.add(StringUtils.join(conditions, " AND "));

@@ -35,7 +35,7 @@ public class Document {
     @Enumerated(EnumType.STRING)
     private DocumentStatus status;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             joinColumns = @JoinColumn(name = "document_id"),
             inverseJoinColumns = @JoinColumn(name = "reader_id")
