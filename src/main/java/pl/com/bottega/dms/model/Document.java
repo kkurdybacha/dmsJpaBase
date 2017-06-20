@@ -8,18 +8,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Document {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Document extends BaseEntity {
 
     @NaturalId
     private String number;
 
     private String title;
     private String content;
-    private LocalDateTime createdAt;
     private LocalDateTime verifiedAt;
     private LocalDateTime publishedAt;
 
@@ -41,14 +36,6 @@ public class Document {
             inverseJoinColumns = @JoinColumn(name = "reader_id")
     )
     private Set<Employee> readers = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNumber() {
         return number;
@@ -72,14 +59,6 @@ public class Document {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     public LocalDateTime getVerifiedAt() {

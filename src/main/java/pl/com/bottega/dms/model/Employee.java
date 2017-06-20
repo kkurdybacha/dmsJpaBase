@@ -5,11 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Employee extends BaseEntity {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     private Set<Document> createdDocuments = new HashSet<>();
@@ -39,14 +35,6 @@ public class Employee {
             @AttributeOverride(name = "number", column = @Column(name = "private_phone_number"))
     })
     private PhoneNumber privatePhone;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Set<Document> getCreatedDocuments() {
         return createdDocuments;
