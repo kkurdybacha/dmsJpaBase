@@ -14,8 +14,7 @@ import javax.persistence.Query;
 import java.util.*;
 import java.util.function.Consumer;
 
-@Component
-public class JPADocumentReader implements DocumentReader {
+public class JPQLDocumentReader implements DocumentReader {
 
     @PersistenceContext
     private EntityManager entityManager;
