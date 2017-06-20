@@ -11,6 +11,7 @@ import pl.com.bottega.dms.api.DocumentSearchCriteria;
 import pl.com.bottega.dms.model.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.print.Doc;
 import java.time.LocalDateTime;
@@ -77,6 +78,19 @@ public class App implements CommandLineRunner {
             System.out.println("================" + docs.size());
             for(DocumentDto d : docs)
                 System.out.println(d);
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+           Document document = repo.load("1");
+           document.setStatus(DocumentStatus.VERIFIED);
+           return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            Document document = repo.load("1");
+            entityManager.lock(document, LockModeType.PESSIMISTIC_WRITE);
+            document.setStatus(DocumentStatus.VERIFIED);
             return null;
         });
     }

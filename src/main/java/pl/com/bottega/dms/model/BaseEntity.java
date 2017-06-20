@@ -15,6 +15,9 @@ public class BaseEntity {
 
     private LocalDateTime updatedAt;
 
+    @Version
+    private Long version;
+
     public Long getId() {
         return id;
     }
