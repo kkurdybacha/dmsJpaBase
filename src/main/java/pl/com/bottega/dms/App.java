@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.support.TransactionTemplate;
+import pl.com.bottega.dms.api.DocumentDto;
 import pl.com.bottega.dms.api.DocumentReader;
 import pl.com.bottega.dms.api.DocumentSearchCriteria;
 import pl.com.bottega.dms.model.*;
@@ -66,6 +67,16 @@ public class App implements CommandLineRunner {
             System.out.println("================" + docs.size());
             for(Document d : docs)
                 d.getReaders().size();
+            return null;
+        });
+
+        transactionTemplate.execute((c) -> {
+            DocumentSearchCriteria crit = new DocumentSearchCriteria();
+            crit.setStatus(DocumentStatus.DRAFT);
+            List<DocumentDto> docs = reader.searchDocumentDtos(crit);
+            System.out.println("================" + docs.size());
+            for(DocumentDto d : docs)
+                System.out.println(d);
             return null;
         });
     }
