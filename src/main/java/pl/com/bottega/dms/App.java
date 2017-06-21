@@ -32,6 +32,9 @@ public class App implements CommandLineRunner {
     @Autowired
     private DocumentRepository repo;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
@@ -88,11 +91,22 @@ public class App implements CommandLineRunner {
         });
 
         transactionTemplate.execute((c) -> {
-            Document document = repo.load("1");
-            entityManager.lock(document, LockModeType.PESSIMISTIC_WRITE);
-            document.setStatus(DocumentStatus.VERIFIED);
+            User user = new User();
+            Employee employee = new Employee();
+            user.setEmployee(employee);
+            employee.setUser(user);
+            user.setLogin("login");
+            entityManager.persist(employee);
+            entityManager.persist(user);
             return null;
         });
+
+        transactionTemplate.execute((c) -> {
+            Employee employee = employeeRepository.findOne(1L);
+            return null;
+        });
+
+
     }
 
 }

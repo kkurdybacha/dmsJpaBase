@@ -1,8 +1,12 @@
 package pl.com.bottega.dms.model;
 
-import javax.persistence.*;
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
+@Cacheable
 public class User extends BaseEntity {
 
     private String login;

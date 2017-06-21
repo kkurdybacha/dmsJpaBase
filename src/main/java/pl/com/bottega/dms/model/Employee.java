@@ -1,7 +1,9 @@
 package pl.com.bottega.dms.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,19 +24,9 @@ public class Employee extends BaseEntity {
     @OneToOne(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private User user;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "countryCode", column = @Column(name = "work_phone_country_code")),
-            @AttributeOverride(name = "number", column = @Column(name = "work_phone_number"))
-    })
-    private PhoneNumber workPhone;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "countryCode", column = @Column(name = "private_phone_country_code")),
-            @AttributeOverride(name = "number", column = @Column(name = "private_phone_number"))
-    })
-    private PhoneNumber privatePhone;
+    @ElementCollection
+    @OrderColumn
+    public List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     public Set<Document> getCreatedDocuments() {
         return createdDocuments;
@@ -62,19 +54,4 @@ public class Employee extends BaseEntity {
         this.user = user;
     }
 
-    public PhoneNumber getWorkPhone() {
-        return workPhone;
-    }
-
-    public void setWorkPhone(PhoneNumber workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    public PhoneNumber getPrivatePhone() {
-        return privatePhone;
-    }
-
-    public void setPrivatePhone(PhoneNumber privatePhone) {
-        this.privatePhone = privatePhone;
-    }
 }
