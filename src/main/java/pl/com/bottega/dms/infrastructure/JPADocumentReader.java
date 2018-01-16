@@ -17,12 +17,12 @@ public class JPADocumentReader implements DocumentReader {
     private EntityManager entityManager;
 
     @Override
-    public List<Document> searchDocuments(DocumentSearchCriteria criteria) {
+    public List<DocumentDto> searchDocumentDtos(DocumentSearchCriteria criteria) {
         return null;
     }
 
     @Override
-    public List<DocumentDto> searchDocumentDtos(DocumentSearchCriteria criteria) {
+    public DocumentDto get(Long id) {
         return null;
     }
 }
