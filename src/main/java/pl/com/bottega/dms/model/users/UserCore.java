@@ -1,18 +1,26 @@
 package pl.com.bottega.dms.model.users;
 
 
+import javax.persistence.*;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "user")
 public class UserCore implements User {
 
+    @OneToMany(mappedBy = "userCore", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRole> roles = new HashSet<>();
 
     private String login, password;
 
     private LocalDateTime lastLogin;
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     UserCore() {
     }
@@ -33,6 +41,7 @@ public class UserCore implements User {
     @Override
     public void addRole(UserRole userRole) {
         roles.add(userRole);
+        userRole.setUserCore(this);
     }
 
     @Override
