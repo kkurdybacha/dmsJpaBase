@@ -1,5 +1,6 @@
 package pl.com.bottega.dms.acceptance;
 
+import org.hibernate.LazyInitializationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +129,7 @@ public class JpaPlay {
     assertThat(entityManager.find(User.class, 1L).getLogin()).isEqualTo("wiesiek");
   }
 
-  @Test
+  @Test(expected = LazyInitializationException.class)
   public void cantLazyLoadOutsidePersistenceContext() {
     Auction auction = new Auction();
 
@@ -139,6 +140,25 @@ public class JpaPlay {
 
     Auction auction1 = entityManager.find(Auction.class, 1L);
     auction1.bids.size();
+  }
+
+  @Test
+  public void testCascade() {
+    Auction auction = new Auction();
+    auction.bids.add(new Bid());
+
+    transactionTemplate.execute(c -> {
+      entityManager.persist(auction);
+      auction.bids.add(new Bid());
+      return null;
+    });
+
+    transactionTemplate.execute(c -> {
+      Auction auction1 = entityManager.find(Auction.class, 1L);
+      assertThat(auction1.bids.size()).isEqualTo(2);
+      return null;
+    });
+
   }
 
 }

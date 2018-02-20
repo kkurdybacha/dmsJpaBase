@@ -14,13 +14,13 @@ public class Employee {
   @OneToOne(mappedBy = "employee")
   private User user;
 
-  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
   private Collection<Document> createdDocuments = new LinkedList<>();
 
-  @OneToMany(mappedBy = "verifier")
+  @OneToMany(mappedBy = "verifier", cascade = CascadeType.PERSIST)
   private Collection<Document> verifiedDocuments = new LinkedList<>();
 
-  @ManyToMany(mappedBy = "readBy")
+  @ManyToMany(mappedBy = "readBy", cascade = CascadeType.PERSIST)
   private Collection<Document> readDocuments = new LinkedList<>();
 
   @Embedded

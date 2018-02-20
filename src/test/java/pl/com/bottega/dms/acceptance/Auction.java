@@ -14,4 +14,9 @@ public class Auction {
   @OneToMany(cascade = CascadeType.ALL)
   public Collection<Bid> bids = new LinkedList<>();
 
+  @PostLoad
+  public void loaded() {
+    System.out.print("a");
+  }
+
 }
