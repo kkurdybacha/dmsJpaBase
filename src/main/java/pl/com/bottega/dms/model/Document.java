@@ -1,5 +1,7 @@
 package pl.com.bottega.dms.model;
 
+import pl.com.bottega.dms.infrastructure.DocumentStatusConverter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -22,6 +24,12 @@ public class Document {
   private LocalDateTime verifiedAt;
 
   private LocalDateTime publishedAt;
+
+  @Convert(converter = DocumentStatusConverter.class)
+  private DocumentStatus status = DocumentStatus.DRAFT;
+
+  @Enumerated(EnumType.STRING)
+  private DocumentStatus statusAsEnum = DocumentStatus.DRAFT;
 
   @ManyToOne
   private Employee author;
