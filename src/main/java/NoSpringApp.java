@@ -21,9 +21,9 @@ public class NoSpringApp {
     document.setAuthor(employee);
     employee.addCreatedDocument(document);
 
-    em.persist(employee);
+    //em.persist(employee);
     em.persist(user);
-    em.persist(document);
+    //em.persist(document);
     em.flush();
     System.out.println(document.getId());
     em.getTransaction().commit();

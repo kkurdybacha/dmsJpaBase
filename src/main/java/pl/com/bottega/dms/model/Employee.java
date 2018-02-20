@@ -14,7 +14,7 @@ public class Employee {
   @OneToOne(mappedBy = "employee")
   private User user;
 
-  @OneToMany(mappedBy = "author")
+  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   private Collection<Document> createdDocuments = new LinkedList<>();
 
   @OneToMany(mappedBy = "verifier")
@@ -44,4 +44,9 @@ public class Employee {
   public void addCreatedDocument(Document document) {
     createdDocuments.add(document);
   }
+
+  public Long getId() {
+    return id;
+  }
+
 }

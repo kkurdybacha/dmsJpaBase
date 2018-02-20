@@ -20,4 +20,20 @@ public class User {
   public void setEmployee(Employee employee) {
     this.employee = employee;
   }
+
+  public Long getId() {
+    return employeeId;
+  }
+
+  public void setLogin(String login) {
+    this.login = login;
+  }
+
+  public String getLogin() {
+    return login;
+  }
+
+  public void setId(long id) {
+    this.employeeId = id;
+  }
 }
