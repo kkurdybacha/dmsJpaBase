@@ -49,11 +49,20 @@ public class Document {
   @Basic(fetch = FetchType.LAZY)
   private String content;
 
+  @Version
+  public Long version;
+
   public Long getId() {
     return id;
   }
 
   public void setAuthor(Employee author) {
     this.author = author;
+  }
+
+  public void verify() {
+    if(status != DocumentStatus.DRAFT)
+      throw new IllegalStateException();
+    status = DocumentStatus.VERIFIED;
   }
 }

@@ -5,19 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Bid {
+public class Address {
 
   @Id
   @GeneratedValue
-  public Long id;
+  private Long id;
 
-  private int amount;
-
-  Bid() {
-  }
-
-  Bid(int amount) {
-    this.amount = amount;
-  }
+  private String city;
 
 }

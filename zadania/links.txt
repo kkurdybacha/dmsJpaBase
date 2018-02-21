@@ -9,3 +9,6 @@ https://dzone.com/articles/bulk-fetching-hibernate
 
 DMS API impl
 https://github.com/mzubala/dms/blob/master/src/main/java/pl/com/bottega/dms/application/impl/StandardDocumentFlowProcess.java
+
+Ankieta
+https://goo.gl/forms/xxUvguGUoDUraXMD3
