@@ -1,2 +1,11 @@
 Mind mup
 https://app.mindmup.com/map/_free/2018/02/02a34eb016ec11e8b790310aa5fb0dba
+
+Wiki
+https://en.wikibooks.org/wiki/Java_Persistence/JPQL#Select_Queries
+
+Scrollable results
+https://dzone.com/articles/bulk-fetching-hibernate
+
+DMS API impl
+https://github.com/mzubala/dms/blob/master/src/main/java/pl/com/bottega/dms/application/impl/StandardDocumentFlowProcess.java
