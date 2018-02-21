@@ -16,16 +16,20 @@ public class JPADocumentRepository implements DocumentRepository {
 
     @Override
     public Document get(Long id) throws DocumentNotFoundException {
-        return null;
+        Document document = entityManager.find(Document.class, id);
+        if(document == null)
+            throw new DocumentNotFoundException();
+        return document;
     }
 
     @Override
     public void save(Document document) {
-
+        entityManager.persist(document);
     }
 
     @Override
     public void remove(Long id) throws DocumentNotFoundException {
-
+        Document document = get(id);
+        entityManager.remove(document);
     }
 }
